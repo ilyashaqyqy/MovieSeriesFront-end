@@ -1,10 +1,11 @@
-<nav class="bg-gray-800 p-4">
+<!-- Example in NavbarComponent template -->
+<nav class="bg-black p-4">
     <div class="container mx-auto flex justify-between items-center">
-      <a class="text-white text-lg font-bold" href="#">MovieSeriesTV</a>
+      <a class="text-white text-lg " routerLink="/">MovieSeriesTV</a>
       <div class="hidden md:flex space-x-4">
-        <a class="text-gray-300 hover:text-white" href="#">Home</a>
-        <a class="text-gray-300 hover:text-white" href="#">Movies</a>
-        <a class="text-gray-300 hover:text-white" href="#">Series</a>
+        <a class="text-gray-300 hover:text-white" routerLink="/">Home</a>
+        <a class="text-gray-300 hover:text-white" routerLink="/movies">Movies</a>
+        <a class="text-gray-300 hover:text-white" routerLink="/series">Series</a>
       </div>
       <div class="md:hidden">
         <button class="text-gray-300 hover:text-white">

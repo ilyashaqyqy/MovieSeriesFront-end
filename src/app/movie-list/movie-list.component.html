@@ -1,40 +1,40 @@
+<div class="bg-black text-white">
+  <div class="container mx-auto px-4 pt-8">
 
+    <div class="mb-8">
+      <h1 class="text-4xl font-semi-bold text-white">
+        Movies
+      </h1>
+    </div>
 
-<div class="bg-gray-900 text-white">
-    <div class="container mx-auto px-4 pt-8">
+    <div *ngIf="movies.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div *ngFor="let movie of movies" class="relative">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
+          <!-- Movie poster image with shadow -->
+          <div class="relative">
+            <a [routerLink]="['/movies', movie.idFilm]">
+              <img class="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer" [src]="getMovieImage(movie.titre)" alt="{{ movie.titre }}">
+            </a>
 
-      <div class="mb-8">
-        <h1 class="text-4xl font-semi-bold text-white ">
-          Movies
-        </h1>
-      </div>
-
-      <div *ngIf="movies.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <div *ngFor="let movie of movies" class="relative">
-          <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-            <!-- Movie poster image with shadow -->
-            <div class="relative">
-              <img class="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer" src="https://www.photomural.com/media/catalog/product/cache/2/thumbnail/9df78eab33525d08d6e5fb8d27136e95/v/d/vd-046-star-wars-official-poster-ep7.jpg" alt="{{ movie.titre }}">
-              <!-- Overlay for movie info -->
-              <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <div class="p-6 text-center text-white">
+            <!-- Overlay for movie info -->
+            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <div class="p-6 text-center text-white">
+                <a [routerLink]="['/movies', movie.idFilm]">
                   <h3 class="font-semibold text-xl mb-2">{{ movie.titre }}</h3>
-                  <p class="text-gray-300 text-left">
-                    Release Date: {{ movie.dateSortie | date }}<br>
-                    Director: {{ movie.realisateur }}<br>
-                    Rating: {{ movie.note }}<br>
-                    Genres: {{ movie.genre }}
-                  </p>
-                  
-                </div>
+                </a>
+                <p class="text-gray-300 ">
+                 {{ movie.dateSortie | date }}<br>
+
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div *ngIf="movies.length === 0" class="text-center mt-8">
-        <p>No movies available.</p>
-      </div>
+    </div>
+
+    <div *ngIf="movies.length === 0" class="text-center mt-8">
+      <p>No movies available.</p>
     </div>
   </div>
-  
+</div>

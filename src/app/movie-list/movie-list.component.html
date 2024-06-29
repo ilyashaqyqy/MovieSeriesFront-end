@@ -1,5 +1,14 @@
+
+
 <div class="bg-gray-900 text-white">
     <div class="container mx-auto px-4 pt-8">
+
+      <div class="mb-8">
+        <h1 class="text-4xl font-semi-bold text-white ">
+          Movies
+        </h1>
+      </div>
+
       <div *ngIf="movies.length > 0" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         <div *ngFor="let movie of movies" class="relative">
           <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">

@@ -39,6 +39,15 @@ export class MovieService {
         );
     }
 
+     
+  /** GET favorite movies */
+  getFavoriteMovies(userId: number = 3): Observable<Movie[]> {
+    return this.http.get<Movie[]>(`${this.favorisUrl}/user/${userId}/films`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   // Example of error handling function, customize as per your application's needs
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {

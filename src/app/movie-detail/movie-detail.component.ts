@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../model/movie';
 import { MovieService } from '../service/movie.service';
 import { CommonModule } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-movie-detail',
@@ -23,7 +22,6 @@ export class MovieDetailComponent implements OnInit {
     'The Dark Knight': 'https://m.media-amazon.com/images/I/818hyvdVfvL._AC_UF894,1000_QL80_.jpg',
     
   };
-  snackBar: any;
 
   constructor(private route: ActivatedRoute, private movieService: MovieService) {}
 
@@ -54,15 +52,10 @@ export class MovieDetailComponent implements OnInit {
       this.movieService.addMovieToFavorites(this.movie.idFilm)
         .subscribe(
           () => {
-            this.snackBar.open('Movie added to favorites!', 'Close', {
-              duration: 3000,
-            });
+            console.log('Movie added to favorites');
           },
           error => {
             console.error('Error adding movie to favorites:', error);
-            this.snackBar.open('Failed to add movie to favorites', 'Close', {
-              duration: 3000,
-            });
           }
         );
     }

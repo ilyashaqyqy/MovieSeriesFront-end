@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Movie } from '../model/movie';
 import { MovieService } from '../service/movie.service';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-movie-detail',
@@ -15,9 +16,14 @@ export class MovieDetailComponent implements OnInit {
   movie: Movie | undefined;
   movieImageMapping: { [key: string]: string } = {
     'The Shawshank Redemption': 'https://i.pinimg.com/736x/b3/72/3b/b3723b1a5a16ccbe684715da3ea30516.jpg',
-    'Movie Title 2': 'https://example.com/image2.jpg',
-    // Add more mappings as needed
+    'Forrest Gump': 'https://m.media-amazon.com/images/I/718o2FI-a0L._AC_UF894,1000_QL80_.jpg',
+    'Inception': 'https://m.media-amazon.com/images/I/71DwIcSgFcS.jpg',
+    'The Godfather': 'https://i.ebayimg.com/images/g/X~cAAOSwz2ZiaB2w/s-l1600.jpg',
+    'Pulp Fiction': 'https://storage.googleapis.com/pod_public/750/157513.jpg',
+    'The Dark Knight': 'https://m.media-amazon.com/images/I/818hyvdVfvL._AC_UF894,1000_QL80_.jpg',
+    
   };
+  snackBar: any;
 
   constructor(private route: ActivatedRoute, private movieService: MovieService) {}
 
@@ -37,6 +43,26 @@ export class MovieDetailComponent implements OnInit {
           error => {
             console.error('Error fetching movie details:', error);
             // Handle error as needed
+          }
+        );
+    }
+  }
+
+
+  addToFavorites(): void {
+    if (this.movie && this.movie.idFilm) {
+      this.movieService.addMovieToFavorites(this.movie.idFilm)
+        .subscribe(
+          () => {
+            this.snackBar.open('Movie added to favorites!', 'Close', {
+              duration: 3000,
+            });
+          },
+          error => {
+            console.error('Error adding movie to favorites:', error);
+            this.snackBar.open('Failed to add movie to favorites', 'Close', {
+              duration: 3000,
+            });
           }
         );
     }

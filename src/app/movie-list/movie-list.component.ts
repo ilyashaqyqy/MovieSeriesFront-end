@@ -18,8 +18,13 @@ export class MovieListComponent implements OnInit {
   // Define a mapping of movie titles to image URLs
   movieImageMapping: { [key: string]: string } = {
     'The Shawshank Redemption':"https://i.pinimg.com/736x/b3/72/3b/b3723b1a5a16ccbe684715da3ea30516.jpg",
-    'Movie Title 2': 'https://example.com/image2.jpg',
-    // Add more mappings as needed
+    'Forrest Gump': 'https://m.media-amazon.com/images/I/718o2FI-a0L._AC_UF894,1000_QL80_.jpg',
+    'Inception': 'https://m.media-amazon.com/images/I/71DwIcSgFcS.jpg',
+    'The Godfather': 'https://i.ebayimg.com/images/g/X~cAAOSwz2ZiaB2w/s-l1600.jpg',
+    'Pulp Fiction': 'https://storage.googleapis.com/pod_public/750/157513.jpg',
+    'The Dark Knight': 'https://m.media-amazon.com/images/I/818hyvdVfvL._AC_UF894,1000_QL80_.jpg',
+
+  
   };
 
   constructor(private movieService: MovieService) {}

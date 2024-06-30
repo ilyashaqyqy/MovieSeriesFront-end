@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Movie } from '../model/movie';
@@ -9,6 +9,7 @@ import { Movie } from '../model/movie';
 })
 export class MovieService {
   private apiUrl = 'http://localhost:8084/api/films'; 
+  private favorisUrl = 'http://localhost:8084/api/favoris'; 
 
   constructor(private http: HttpClient) {}
 
@@ -25,9 +26,18 @@ export class MovieService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Movie>(url)
       .pipe(
-        catchError(this.handleError) // Error handling function
+        catchError(this.handleError) 
       );
   }
+
+    /** POST add a movie to favorites */
+    addMovieToFavorites(movieId: number, userId: number = 3): Observable<void> {
+      const params = new HttpParams().set('userId', userId.toString()).set('filmId', movieId.toString());
+      return this.http.post<void>(`${this.favorisUrl}/add-film`, {}, { params })
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
 
   // Example of error handling function, customize as per your application's needs
   private handleError(error: HttpErrorResponse): Observable<never> {

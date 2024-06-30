@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./movie-detail.component.scss']
 })
 export class MovieDetailComponent implements OnInit {
+  showNotification = false;
   movie: Movie | undefined;
   movieImageMapping: { [key: string]: string } = {
     'The Shawshank Redemption': 'https://i.pinimg.com/736x/b3/72/3b/b3723b1a5a16ccbe684715da3ea30516.jpg',
@@ -53,6 +54,10 @@ export class MovieDetailComponent implements OnInit {
         .subscribe(
           () => {
             console.log('Movie added to favorites');
+            this.showNotification = true;
+            setTimeout(() => {
+              this.showNotification = false;
+            }, 3000); // Hide the notification after 3 seconds
           },
           error => {
             console.error('Error adding movie to favorites:', error);

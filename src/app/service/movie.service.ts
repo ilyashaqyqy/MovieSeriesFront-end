@@ -48,6 +48,17 @@ export class MovieService {
       );
   }
 
+  removeMovieFromFavorites(movieId: number, userId: number = 3): Observable<void> {
+    const params = new HttpParams()
+      .set('userId', userId.toString())
+      .set('filmId', movieId.toString());
+    return this.http.delete<void>(`${this.favorisUrl}/remove-film`, { params })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+
   // Example of error handling function, customize as per your application's needs
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.error instanceof ErrorEvent) {
@@ -63,4 +74,6 @@ export class MovieService {
     // Return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
   }
+
+
 }

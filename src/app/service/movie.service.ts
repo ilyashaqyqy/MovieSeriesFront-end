@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Movie } from '../model/movie';
 
 @Injectable({
@@ -42,17 +42,22 @@ export class MovieService {
      
   /** GET favorite movies */
   getFavoriteMovies(userId: number = 3): Observable<Movie[]> {
-    return this.http.get<Movie[]>(`${this.favorisUrl}/user/${userId}/films`)
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.get<Movie[]>(`${this.favorisUrl}/user/${userId}/films`, { params })
       .pipe(
+        map((response: any) => {
+          console.log('Favorite movies response:', response);
+          return response;
+        }),
         catchError(this.handleError)
       );
   }
 
-  removeMovieFromFavorites(movieId: number, userId: number = 3): Observable<void> {
+  removeMovieFromFavorites(movieId: number, userId: number = 3): Observable<any> {
     const params = new HttpParams()
       .set('userId', userId.toString())
       .set('filmId', movieId.toString());
-    return this.http.delete<void>(`${this.favorisUrl}/remove-film`, { params })
+    return this.http.delete(`${this.favorisUrl}/remove-film`, { params, responseType: 'text' })
       .pipe(
         catchError(this.handleError)
       );

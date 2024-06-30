@@ -36,11 +36,13 @@ export class FavoritesComponent implements OnInit {
     this.movieService.getFavoriteMovies()
       .subscribe(
         movies => {
+          console.log('Received favorite movies:', movies);
           this.favoriteMovies = movies;
         },
         error => {
           console.error('Error fetching favorite movies:', error);
-          // Handle error as needed
+          this.showNotification = true;
+          this.notificationMessage = 'Error fetching favorite movies. Please try again.';
         }
       );
   }
@@ -51,10 +53,12 @@ export class FavoritesComponent implements OnInit {
       this.movieService.removeMovieFromFavorites(movie.idFilm)
         .subscribe(
           () => {
-            this.favoriteMovies = this.favoriteMovies.filter(m => m.idFilm !== movie.idFilm);
             this.showNotification = true;
             this.notificationMessage = `"${movie.titre}" has been removed from your favorites.`;
             setTimeout(() => this.showNotification = false, 3000);
+            
+            // Refresh the entire list from the server
+            this.loadFavoriteMovies();
           },
           error => {
             console.error('Error removing movie from favorites:', error);

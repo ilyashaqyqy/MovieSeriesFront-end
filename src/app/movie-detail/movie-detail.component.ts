@@ -21,7 +21,6 @@ export class MovieDetailComponent implements OnInit {
     'The Godfather': 'https://i.ebayimg.com/images/g/X~cAAOSwz2ZiaB2w/s-l1600.jpg',
     'Pulp Fiction': 'https://storage.googleapis.com/pod_public/750/157513.jpg',
     'The Dark Knight': 'https://m.media-amazon.com/images/I/818hyvdVfvL._AC_UF894,1000_QL80_.jpg',
-    
   };
 
   constructor(private route: ActivatedRoute, private movieService: MovieService) {}
@@ -46,7 +45,6 @@ export class MovieDetailComponent implements OnInit {
         );
     }
   }
-
 
   addToFavorites(): void {
     if (this.movie && this.movie.idFilm) {

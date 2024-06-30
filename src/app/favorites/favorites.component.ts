@@ -23,6 +23,9 @@ export class FavoritesComponent implements OnInit {
     'The Dark Knight': 'https://m.media-amazon.com/images/I/818hyvdVfvL._AC_UF894,1000_QL80_.jpg',
   };
 
+  showNotification = false;
+  notificationMessage = '';
+
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
@@ -40,6 +43,26 @@ export class FavoritesComponent implements OnInit {
           // Handle error as needed
         }
       );
+  }
+
+
+  removeFromFavorites(movie: Movie): void {
+    if (confirm(`Are you sure you want to remove "${movie.titre}" from your favorites?`)) {
+      this.movieService.removeMovieFromFavorites(movie.idFilm)
+        .subscribe(
+          () => {
+            this.favoriteMovies = this.favoriteMovies.filter(m => m.idFilm !== movie.idFilm);
+            this.showNotification = true;
+            this.notificationMessage = `"${movie.titre}" has been removed from your favorites.`;
+            setTimeout(() => this.showNotification = false, 3000);
+          },
+          error => {
+            console.error('Error removing movie from favorites:', error);
+            this.showNotification = true;
+            this.notificationMessage = 'Error removing movie from favorites. Please try again.';
+          }
+        );
+    }
   }
 
   getMovieImage(movie: Movie): string {
